@@ -52,14 +52,9 @@ const movieSchema = new Schema({
     },
     releaseDate: Date,
     threatre: [{
-        tid: {
+        
             type: Schema.Types.ObjectId,
             ref: "theatre"
-        },
-        tname: {
-            type: String,
-            ref: "theatre"
-        }
     }]
 })
 

@@ -9,14 +9,8 @@ theatreSchema = new Schema({
         trim: true
     },
     city: [{
-        id: {
             type: Schema.Types.ObjectId,
             ref: "city"
-        },
-        cityname:{
-            type:String,
-            ref:"city"
-        }
     }],
     total_seat: {
         type: Number,
