@@ -1,2 +1,2 @@
-# coal-mining
-Personal work experiment  
+# Entertainment-Sports-API
+Project done by Abhijeet and Souvik
