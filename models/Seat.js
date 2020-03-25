@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-seatSchema = new Schema({
+const seatSchema = new Schema({
     sreen_type: {
         type: String,
         required: true

@@ -29,5 +29,7 @@ module.exports = {
   async getSingleMovie(req, res){
       const movie = await movieModel.find({mname: req.query.movieName})
       return res.status(200).send({movie: movie});
-  }
+  },
+
+  
 }

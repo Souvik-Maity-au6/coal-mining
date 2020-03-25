@@ -3,6 +3,7 @@ const cloudinary = require("../cloudinary");
 const movieModel = require("../models/movie");
 const cityModel = require("../models/City");
 const threaterModel = require("../models/Theater");
+const seatModel = require("../models/Seat");
 const convert = require("../converter");
 
 
@@ -59,6 +60,13 @@ module.exports = {
       movie.threater.push(req.params.theatreId);
       const addMovie = await movie.save();
       res.status(200).send({msg:"Sucessfully Uploaded",movie:addMovie});
+  },
+  async addSeat(req,res){
+
+      req.body.theater=req.params.theatreId;
+      const newseat= new seatModel({...req.body});
+      const seat = await newseat.save();
+      return res.status(201).send({msg:"Sucessfully Uploaded",seat:seat});
   }
 
 }
