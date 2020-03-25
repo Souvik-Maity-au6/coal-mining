@@ -13,9 +13,9 @@ module.exports = {
       const city = await cityModel.find({name:req.query.city});
       const allTheater= movie[0].threater;
       const chosenCity = allTheater.filter((theater)=>{
-          return String(theater.city[0]) === String(city[0]._id); 
+          return String(theater.city) === String(city[0]._id); 
       })
-      res.status(200).send({chosenCity:chosenCity});
+      res.status(200).send({chosenCityTheater:chosenCity});
   },
 
   ///---------------------------------------------------------------------------------////

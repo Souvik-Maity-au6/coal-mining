@@ -36,8 +36,7 @@ module.exports = {
     async addTheater(req,res){
         req.body.city = req.params.cityId;
         const newTheater = new threaterModel({...req.body});
-           
-        newTheater.save();
+        await newTheater.save();
         return res.send("DOne");
     },
 
