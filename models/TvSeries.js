@@ -9,9 +9,9 @@ const tvSchema = new Schema({
         required:true,
         trim:true
     },
-    genre: {
-        type: String // check genere whether it should be array or singleton
-    },
+    genre: [{
+        type: String  
+    }],
     posterImage: {
         type: String
     },
@@ -28,16 +28,28 @@ const tvSchema = new Schema({
         type: String
     }],
     writer: {
-        type: String
+        type: String,
+        required:true,
+        trim:true
     },
     producer: {
-        type: String
+        type: String,
+        required:true,
+        trim:true
     },
     director: {
-        type: String
+        type: String,
+        required:true,
+        trim:true
     },
-    hours: {
-        type: String
+    runtime: {
+        type: String,
+        required:true,
+        trim:true
+    },
+    episode: {
+        type: Number,
+        required:true
     },
     imdRating: {
         type: Number
@@ -51,9 +63,10 @@ const tvSchema = new Schema({
     summary: {
         type: String
     },
-    channelName:{
-        type:String // please check whether channelName should be array or single 
-    }
+    channelName:[{
+        type:String,
+        required: true
+    }]
 });
 
 const tvModel = mongoose.model("TvSeries",tvSchema);

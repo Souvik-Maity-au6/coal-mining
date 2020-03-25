@@ -17,7 +17,7 @@ const songSchema = Schema({
         type: String,
         required: true
     },
-    lyricyst: {
+    lyricist: {
         type: String,
         required: true
     },
@@ -33,6 +33,11 @@ const songSchema = Schema({
     },
     genre: {
         type: String
+    },
+    album: {
+        type: String,
+        required:true,
+        trim:true
     }
 
 });
