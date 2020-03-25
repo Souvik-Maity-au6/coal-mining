@@ -28,5 +28,5 @@ const showSchema = Schema({
     }]
 })
 
-const shoeModel = mongoose.model(showSchema, "show");
-module.exports = shoeModel;
+const showModel = mongoose.model(showSchema, "show");
+module.exports = showModel;

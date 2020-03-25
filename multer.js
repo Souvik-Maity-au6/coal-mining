@@ -1,8 +1,11 @@
-var multer = require("multer");
-var dotenv = require("dotenv");
-dotenv.config();    
-var path = require("path");
-var injectFileName = function(originalname){
+const multer = require("multer");
+const dotenv = require("dotenv"); 
+const path = require("path");
+
+
+dotenv.config();   
+
+const injectFileName = function(originalname){
 
     var extname = path.extname(originalname);
     originalname.replace(extname,'')+"-" + Date.now();
@@ -10,12 +13,11 @@ var injectFileName = function(originalname){
     return originalname;
 
 }
-var multerConfig = {
+const multerConfig = {
 
     storage: multer.memoryStorage({
         destination:"uploads/",
         filename: function(req,file,cb){
-            console.log(file);
             cb(null,injectFileName(file.originalname))
         }
     }),
@@ -38,5 +40,6 @@ var multerConfig = {
     }
 }
 
-var upload = multer(multerConfig);
+
+const upload = multer(multerConfig);
 module.exports = upload;

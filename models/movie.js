@@ -9,11 +9,9 @@ const movieSchema = new Schema({
         trim: true,
         required: true
     },
-    genre: {
-        type: String,
-        trim: true,
-        required: true
-    },
+    genre: [{
+            type: String
+    }],
     currentlyRunning: {
         type: Boolean
     },
@@ -51,7 +49,7 @@ const movieSchema = new Schema({
         type: String
     },
     releaseDate: Date,
-    threatre: [{
+    threater: [{
         
             type: Schema.Types.ObjectId,
             ref: "theatre"

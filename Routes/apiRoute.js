@@ -1,16 +1,24 @@
 
 const {Router} = require("express");
-const upload = require("../multer1");
-const cloudinary = require("../cloudinary");
+const upload = require("../multer");
+const {addMovies,addTheater,addCity,addThreaterToMovie} = require("../Controller/apiController");
 const router = Router();
-const {addMovies,addTheatre,addCity,addThreaterToMovie,searchTheatre,getAllMovies} = require("../Controller/apiController");
+
+
 
 router.post("/addMovies",upload.single("posterImage"),addMovies);
-router.post("/addTheatre/:cityId",addTheatre);
+router.post("/addTheater/:cityId",addTheater);
 router.post("/addCity",addCity);
-router.post("/addMovies/:theatreId/:movieId",addThreaterToMovie);
-router.get("/searchTheatre",searchTheatre);
-router.get("/allMovies",getAllMovies);
+router.post("/addTheater/movie/:theatreId/:movieId",addThreaterToMovie);
+
+
+
+
+
+
+
+
+
 
 module.exports=router;
 

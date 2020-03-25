@@ -1,14 +1,20 @@
 const express = require("express");
-
 const apiRoutes = require("./Routes/apiRoute");
+const normalRoutes = require("./Routes/normalRoutes");
 const dotenv = require("dotenv");
-dotenv.config();
-const a = process.env.PORT || 1234;
 require("./db");
+
+
+
 const app = express();
+const PORT = process.env.PORT || 1234;
+
+
+dotenv.config();
 app.use(express.json());
- app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({extended:true}));
 app.use(apiRoutes);
+app.use(normalRoutes);
 
 
 
@@ -27,6 +33,9 @@ app.use(function(err,req,res,next){
 app.post("/",(req,res)=>{
     console.log(req.body);
 })
-app.listen(a,()=>{
-    console.log("Server is running at port"+a);
+
+
+
+app.listen(PORT,()=>{
+    console.log("Server is running at port",PORT);
 })
