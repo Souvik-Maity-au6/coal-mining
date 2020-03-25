@@ -13,12 +13,6 @@ citySchema = new Schema({
         required: true,
         trim: true
     },
-    // theatre: [{
-    //     id: {
-    //         type: Schema.Types.ObjectId,
-    //         ref: "theatre"
-    //     }
-    // }]
 
 });
 

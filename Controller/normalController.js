@@ -9,7 +9,7 @@ module.exports = {
      ///-----------------------------------------------------------------------////
     //  serchTheater function for searching all details of that theater
   async searchTheater(req,res){
-      const movie = await movieModel.find({mname:req.query.mname}).populate("threatre");
+      const movie = await movieModel.find({mname:req.query.mname}).populate("threater");
       const city = await cityModel.find({name:req.query.city});
       const allTheater= movie[0].threater;
       const chosenCity = allTheater.filter((theater)=>{

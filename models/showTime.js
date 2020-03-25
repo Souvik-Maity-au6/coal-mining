@@ -4,28 +4,20 @@ const Schema = mongoose.Schema;
 
 const showSchema = Schema({
 
-    theatre: [{
-        tid: {
-            type: Schema.Types.ObjectId,
-            ref: "theatre"
-        }
-    }],
+    theater: {
+        type: Schema.Types.ObjectId,
+        ref: "theater"
+    },
     start_timing: {
         type: String
     },
     exact_timing: {
         type: Date
     },
-    movie: [{
-        mid: {
-            type: Schema.Types.ObjectId,
-            ref: "movie"
-        },
-        mname:{
-            type:String,
-            ref:"movie"
-        }
-    }]
+    movie: {
+        type: Schema.Types.ObjectId,
+        ref: "movie"
+    }
 })
 
 const showModel = mongoose.model(showSchema, "show");

@@ -8,10 +8,10 @@ theaterSchema = new Schema({
         required: true,
         trim: true
     },
-    city: [{
+    city: {
             type: Schema.Types.ObjectId,
             ref: "city"
-    }],
+    },
     total_seat: {
         type: Number,
         required: true
@@ -23,5 +23,5 @@ theaterSchema = new Schema({
 
 });
 
-const Theater = mongoose.model("theatre", theaterSchema);
+const Theater = mongoose.model("theater", theaterSchema);
 module.exports = Theater;

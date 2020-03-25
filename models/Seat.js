@@ -15,12 +15,10 @@ seatSchema = new Schema({
         type: Number,
         required: true
     },
-    theatre: [{
-        id: {
-            type: Schema.Types.ObjectId,
-            ref: "theatre"
-        }
-    }]
+    theater: {
+        type: Schema.Types.ObjectId,
+        ref: "theater"
+    }
 });
 
 const Seat = mongoose.model("seat", seatSchema);

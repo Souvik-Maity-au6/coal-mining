@@ -15,7 +15,7 @@ const movieSchema = new Schema({
     currentlyRunning: {
         type: Boolean
     },
-    upcomming: {
+    upcoming: {
         type: Boolean
     },
     posterImage: {
@@ -36,23 +36,31 @@ const movieSchema = new Schema({
     director: {
         type: String
     },
-    Runtime: String,
-    imdRating: Number,
-    criticsRating: Number,
+    Runtime: {
+        type: String
+    },
+    imdRating: {
+        type: Number
+    },
+    criticsRating: {
+        type: Number
+    },
     avaiableScreen: [{
         type: String
     }],
-    summary: [{
+    summary: {
         type: String
-    }],
+    },
     catagory: {
         type: String
     },
-    releaseDate: Date,
+    releaseDate: {
+        type: Date
+    },
     threater: [{
         
             type: Schema.Types.ObjectId,
-            ref: "theatre"
+            ref: "theater"
     }]
 })
 
