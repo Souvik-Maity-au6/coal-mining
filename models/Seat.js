@@ -3,9 +3,9 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const seatSchema = new Schema({
-    sreen_type: {
+    screen_type: {
         type: String,
-        required: true
+        required: [true,"Please provide the screen type"]
     },
     category: {
         type: String,
@@ -13,7 +13,7 @@ const seatSchema = new Schema({
     },
     price: {
         type: Number,
-        required: true
+        required: [true,"Please provide the seat price"]
     },
     theater: {
         type: Schema.Types.ObjectId,

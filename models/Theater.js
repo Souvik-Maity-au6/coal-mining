@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 theaterSchema = new Schema({
     name: {
         type: String,
-        required: true,
+        required: [true,"Please provide the theater name"],
         trim: true
     },
     city: {
@@ -14,11 +14,11 @@ theaterSchema = new Schema({
     },
     total_seat: {
         type: Number,
-        required: true
+        required: [true,"Please provide the total seats"],
     },
     avilable_screen: [{
         type: String,
-        required: true
+        required: [true,"Please provide the available screen"]
     }]
 
 });
