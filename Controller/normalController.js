@@ -48,11 +48,11 @@ module.exports = {
 
   async verify(req,res){
 
-    console.log(req.query);
+    // console.log(req.query);
     
     const user = await userModel.find({token:req.query.token});
     user[0].isAuthorized=true
-    console.log(user); 
+    // console.log(user); 
     await user[0].save();
 
     return res.send({user:user});

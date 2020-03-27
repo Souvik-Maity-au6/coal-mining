@@ -1,5 +1,4 @@
 const {sign,verify}= require("jsonwebtoken");
-const pkey="hjkfsbkbfb";
 
 
 module.exports={
@@ -8,10 +7,12 @@ module.exports={
 
         try{
 
-            console.log(req.headers.authorization);
+            // console.log(req.headers.authorization);
             const token = verify(req.headers.authorization,process.env.PRIVATE_KEY);
-            console.log("token:",token);
-            req.user=token;
+
+            // console.log("token:",token); ********---------------//
+
+            req.user = token;
             next();
         }
         catch(err){
