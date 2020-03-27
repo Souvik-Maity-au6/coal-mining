@@ -36,9 +36,9 @@ module.exports = {
             
             
             
-            const token = await sign({_id:newUser._id},process.env.PRIVATE_KEY,{expiresIn:60*10})
+            const token = await sign({_id:newUser._id},process.env.PRIVATE_KEY,{expiresIn:60*3})
             // console.log(token);
-            newUser.token = token;
+            newUser.token = "1stTime "+token;
             const user = await newUser.save();
 
 //--------------------- Node mailer------------------------------- //   
@@ -86,38 +86,73 @@ module.exports = {
 //----------------------------- Login user to db-----------------------//
 
   async login(req,res){
-
+    const user = await userModel.find({companyEmail:req.body.companyEmail});
     try{
+      /// checks for empty user
+        if(user.length!=0)
+        {
+            let token;
+            let check=null;
+                // checks whether user token created in  1st Time logging or created after expiry is valid
+                if(user[0].token.includes("1stTime") || user[0].token.includes("new")){
+                   token = verify(user[0].token.split(" ")[1],process.env.PRIVATE_KEY);
+                   check = user[0].token.split(" ")[0];
+                }
+                // checks whether already logged in user token is valid or not
+                else
+                {
+                    token = verify(user[0].token,process.env.PRIVATE_KEY);   
+                }
+            console.log("token:",token);
+            const isValid = await compare(req.body.password,user[0].password);
 
-        const user = await userModel.find({companyEmail:req.body.companyEmail});
-        // console.log(req.body.password);
-        // console.log(user);
-        const isValid = await compare(req.body.password,user[0].password);
-        if(user[0].token === null){
-            if(user[0].isAuthorized === true){
-                const token = sign({id:user[0]._id},process.env.PRIVATE_KEY,{expiresIn:60*10});
-                user[0].token = token;
-                await user[0].save();
-                if(isValid){
-                    return res.status(200).send({msg:`Welcome ${user[0].companyName}`,token:token});
-          }
-          else{
-            throw Error("Inavlid Password !!!");
-          }
-        }
-        else{
-          return res.status(400).send({msg:"Please verify your email first"});
-        }
-        }else{
-            const token = verify(user[0].token,process.env.PRIVATE_KEY);
-            if(token){
-                return res.status(400).send({message: "You are already loggedin"});
+            if(isValid)
+            {
+                if(user[0].token === null || check==="1stTime")
+                {
+                      if(user[0].isAuthorized === true)
+                      {
+                              const token = sign({id:user[0]._id},process.env.PRIVATE_KEY,{expiresIn:60*1});
+                              user[0].token = token;
+                              await user[0].save();
+                              return res.status(200).send({msg:`Welcome ${user[0].companyName}`,token:token});          
+                      }
+                      else
+                      {
+                        return res.send({msg:"Verify First"});
+                      }
+                }
+                // if token is created after expiry then remove the new and assign valid token here no new token is created
+                else if (check==="new"){
+                  user[0].token = user[0].token.split(" ")[1];
+                  await user[0].save()
+                  return res.status(200).send({msg:`Welcome ${user[0].companyName}`,token:user[0].token});
+                }
+                // if user try to login again within the expiry time
+                else{
+                  return res.status(400).send({message: "You are already loggedin"});
+                }
             }
-        }   
-    }
+            else
+            {
+               return res.status(404).send({msg:"Invalid Credentials !!!"});
+            }
+        }
+        else
+        {
+            return res.status(404).send({msg:"Invalid Credentials"});
+        }  
+     }
     catch(err){
-      return res.send(err.message);
+      if(err.message === "jwt expired"){
+        // here assign new token if sesssion is expired
+        user[0].token = "new "+sign({id:user[0]._id},process.env.PRIVATE_KEY,{expiresIn:60*1});
+        await user[0].save()
+        return res.status(400).send("Your Seesion is expired please login again !!!");
+      }
+      return res.status(500).send({msg:err.message});
     }
+    
   },
 
 //---------------------------------   Logout user to db--------------------//
