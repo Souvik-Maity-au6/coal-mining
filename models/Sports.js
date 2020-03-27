@@ -6,16 +6,16 @@ const sportSchema = new Schema({
 
     tournamentName: {
         type: String,
-        required:true,
+        required:[true,"Provide tournament name"],
         trim:true
     },
     startingDate: {
         type: Date,
-        required:true,
+        required:[true,"Provide starting date"]
     },
     timing: {
         type: String,
-        required:true,
+        required:[true,"Provide event timing"]
     },
     city: {
         type: Schema.Types.ObjectId,
@@ -23,22 +23,22 @@ const sportSchema = new Schema({
     },
     venue: {
         type: String,
-        required:true
+        required:[true,"Provide venue"]
     },
     sportName: {
         type: String,
-        required:true
+        required:[true,"Provide Sport name"]
     },
     ticketPrice: {
         type: Number,
-        required:true
+        required:[true,"Provide ticket Price"]
     },
     about: {
         type: String
     },
     posterImage: {
         type: String,
-        required:true
+        required:[true,"Provide the poster Image"]
     }
 })
 

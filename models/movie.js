@@ -7,46 +7,57 @@ const movieSchema = new Schema({
     mname: {
         type: String,
         trim: true,
-        required: true
+        required: [true,"Please provide the movie name"]
     },
     genre: [{
-            type: String
+            type: String,
+           
     }],
     currentlyRunning: {
-        type: Boolean
+        type: Boolean,
+        required:[true,"Please provide whether movie currently running or not"]
     },
     upcoming: {
-        type: Boolean
+        type: Boolean,
+        required:[true,"Please provide whether movie upcoming or currently running"]
     },
     posterImage: {
-        type: String
+        type: String,
+        required:[true,"Please provide poster Image"]
     },
     language: [{
-        type: String
+        type: String,
+        required:[true,"Please provide the lnaguage"]
     }],
     cast: [{
-        type: String
+        type: String,
     }],
     writer: {
-        type: String
+        type: String,
+        required:[true,"Please provide the writer"]
     },
     producer: {
-        type: String
+        type: String,
+        required:[true,"Please provide the producer"]
     },
     director: {
-        type: String
+        type: String,
+        required:[true,"Please provide the director"]
     },
     Runtime: {
-        type: String
+        type: String,
+        required:[true,"Please provide the running time"]
     },
     imdRating: {
-        type: Number
+        type: Number,
+        
     },
     criticsRating: {
         type: Number
     },
     avaiableScreen: [{
-        type: String
+        type: String,
+        required:[true,"Please provide the available screen"]
     }],
     summary: {
         type: String
@@ -55,13 +66,16 @@ const movieSchema = new Schema({
         type: String
     },
     releaseDate: {
-        type: Date
+        type: Date,
     },
     threater: [{
         
             type: Schema.Types.ObjectId,
             ref: "theater"
-    }]
+    }],
+    censorCertificate:{
+        type:String
+    }
 })
 
 const movieModel = mongoose.model("movie", movieSchema);
