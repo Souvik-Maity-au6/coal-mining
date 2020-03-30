@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const {sign}= require("jsonwebtoken");
+const {mailConfig} =require("../sendMail");
+const {hash,compare}= require("bcryptjs");
 // const validator = require("validator");
 const Schema = mongoose.Schema;
 
@@ -80,6 +83,57 @@ sport: [{
 }],
 
 })
+userSchema.statics.findByEmailAndPassword = async function(email, password) {
+    let userObj = null;
+        try{
+            return new Promise(async function(resolve, reject) {
+                console.log("email:",email);
+                const user = await userModel.find({ companyEmail: email })
+                    //  console.log(user);
+                    if (user.length===0) reject("Incorrect credentials");
+                    userObj = user;
+                    // console.log("user password :",user.password);
+                    // console.log("password:",password);
+                    const isMatched = await compare(password, user[0].password);
+                
+                    if (!isMatched) reject("Incorrect credentials");
+                    resolve(userObj);
+                
+            });
+    }
+    catch(err){
+        reject(err);
+    }
+   
+  };
+userSchema.methods.generateToken= async function(){
+
+    this.token= await sign({id:this._id},process.env.PRIVATE_KEY,{expiresIn:60*1});
+}
+userSchema.statics.generateToken= async function(){
+
+    this.token= await sign({id:this._id},process.env.PRIVATE_KEY,{expiresIn:60*1});
+}
+userSchema.pre("save", async function(next) {
+    var user = this;
+    // Check whether password field is modified
+
+    try{
+        
+        if (user.isModified("password")) {
+            const hashPwd = await hash(this.password, 10)
+            this.password = hashPwd;
+            next()
+        }
+    }
+    catch(err){
+        // return res.send({msg:err.message});
+        console.log(err);
+       next(err);
+    }
+   
+});
+
 
 const userModel = mongoose.model("user", userSchema);
 module.exports = userModel;

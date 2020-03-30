@@ -10,7 +10,7 @@ const showSchema = Schema({
     },
     startingDate:{
         type:Date,
-        required:[true,"Please provide starting date"]
+        // required:[true,"Please provide starting date"]
     },
     start_timing: {
         type: String,

@@ -1,17 +1,11 @@
 const {sign,verify}= require("jsonwebtoken");
-
+const userModel = require("../models/User");
 
 module.exports={
 
     async authorization(req,res,next){
-
         try{
-
-            // console.log(req.headers.authorization);
-            const token = verify(req.headers.authorization,process.env.PRIVATE_KEY);
-
-            // console.log("token:",token); ********---------------//
-
+            token = verify(req.headers.authorization,process.env.PRIVATE_KEY);
             req.user = token;
             next();
         }
