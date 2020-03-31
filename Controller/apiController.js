@@ -2,12 +2,14 @@
 const cloudinary = require("../cloudinary");
 const movieModel = require("../models/movie");
 const cityModel = require("../models/City");
-const threaterModel = require("../models/Theater");
+const theaterModel = require("../models/Theater");
 const seatModel = require("../models/Seat");
 const showModel = require("../models/showTime");
 const convert = require("../converter");
 
-
+// If the user document has the accessToken property to  something and not null 
+// If the accessToken is present, you could simply have a 403 response
+// If not login.
 
 
 module.exports = {
@@ -17,10 +19,10 @@ module.exports = {
         // console.log("IN ADD MOVIES CONTROLLER");
         try{
 
-            const imageContent = convert(req.file.originalname, req.file.buffer)
-            const {releaseDate}=req.body;
+            const imageContent = convert(req.file.originalname, req.file.buffer);
+            const {releaseDate} = req.body;
             const date = new Date(releaseDate);
-            const image = await cloudinary.uploader.upload(imageContent)
+            const image = await cloudinary.uploader.upload(imageContent);
             req.body.posterImage = image.secure_url;
             req.body.releaseDate = date;
             req.body.threatre = req.params.theatreId;
@@ -39,9 +41,8 @@ module.exports = {
 // addTheater function for addition of theater to the db
     async addTheater(req,res){
       try{
-
           req.body.city = req.params.cityId;
-          const newTheater = new threaterModel({...req.body});
+          const newTheater = new theaterModel({...req.body});
           const theater = await newTheater.save();
           return res.status(201).send({msg:"Sucessfully Uploaded",theater:theater});
 
@@ -90,7 +91,7 @@ module.exports = {
 
     try{
 
-      req.body.theater=req.params.theaterId;
+      req.body.theater = req.params.theaterId;
       const newseat = new seatModel({...req.body});
       const seat = await newseat.save();
       return res.status(201).send({msg:"Sucessfully Uploaded",seat:seat});
@@ -115,6 +116,63 @@ module.exports = {
     catch(err){
       return res.status(400).send({ErrorMessage:err.message});
     }
+  },
+
+  // updateMovie details by updateMovie function
+
+  async updateMovie(req, res){
+    try{
+      const movieId = req.params.movieId;
+      const updateMovie = {...req.body};
+      await movieModel.updateOne({_id: movieId},{...req.body},{new: true});
+      return res.status(200).send({message: "your movie hase been updated Sucessfully", data: updateMovie});
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
+  },
+
+  // updateTheater details
+
+  async updateTheater(req, res){
+    try{
+      const theaterId = req.params.theaterId;
+      const updateTheater = {...req.body};
+      await theaterModel.updateOne({_id: theaterId},{...req.body},{new: true});
+      return res.status(200).send({message: "your movie hase been updated Sucessfully", data: updateTheater});
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
+  },
+
+  // update seat details
+
+  async updateSeat(req, res){
+    try{
+      const seatId = req.params.seatId;
+      const updateSeat = {...req.body};
+      await seatModel.updateOne({_id: seatId},{updateSeat}, {new: true});
+      return res.status(200).send({message: "your movie hase been updated Sucessfully", data: updateSeat});
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
+  },
+
+  // updateShowTime details
+
+  async updateShowTime(req, res){
+    try{
+      const showId = req.params.showId;
+      const updateShowTime = {...req.body};
+      await showModel.updateOne({_id: showId},{updateShowTime}, {new: true});
+      return res.status(200).send({message: "your movie hase been updated Sucessfully", data: updateShowTime});
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
   }
+
 
 }

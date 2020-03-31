@@ -56,22 +56,22 @@ module.exports = {
         
         verify(token,process.env.PRIVATE_KEY);
         const user = await userModel.find({token:req.query.token});
-        console.log(user[0]);
-        if(user[0]!==undefined){
+        // console.log(user[0]);
+        if(user[0] !== undefined){
 
-          user[0].isAuthorized=true
+          user[0].isAuthorized = true
           
           
           
           // console.log(user); 
           await user[0].save();
 
-          return res.send({msg:"You have been Suceesfully Verified ",user:user});
+          return res.send({msg:"You have been Suceesfully Verified you can login now "});
         } 
     }
     catch(err){
       return res.redirect(`/resendEmail?token=${token}`);
-      return res.send({msg:"Your token email token is expired please login to generate new token"});
+      // return res.send({msg:"Your token email token is expired please login to generate new token"});
     }
     
   },
@@ -79,8 +79,8 @@ module.exports = {
   async resendEmail(req,res){
 
         const user = await userModel.find({token:req.query.token});
-        console.log(user);
-        console.log("Hello Iam going to resend Email");
+        // console.log(user);
+        // console.log("Hello Iam going to resend Email");
         user[0].generateToken();
         const updatedUser = await user[0].save();
         let html= `<a href="http://localhost:1234/verify?token=${updatedUser.token}">Verify</a>`;
@@ -98,12 +98,52 @@ module.exports = {
         const user = await userModel.find({token:token});
         
         // console.log(user);
-        user[0].password=newPassword;
+        user[0].password = newPassword;
         user[0].save();
         return res.send({msg:"Your Password has been sucessfully chnaged."});
     }
     catch(err){
         return res.send({msg:"Reset Password request is expired. Please try to forgot password again"});
+    }
+  },
+  async searchUpcomingMovie(req, res){
+    try{
+       const month = new Array();
+            month[0] = "January";
+            month[1] = "February";
+            month[2] = "March";
+            month[3] = "April";
+            month[4] = "May";
+            month[5] = "June";
+            month[6] = "July";
+            month[7] = "August";
+            month[8] = "September";
+            month[9] = "October";
+            month[10] = "November";
+            month[11] = "December";
+      const upcomingMonth = req.query.month;
+      const upcomingYear = Number(req.query.year);
+      const upcomingMovies = await movieModel.find({upcoming: true})
+      const index = month.findIndex(mo =>{
+        return mo === upcomingMonth;
+      }) 
+        const movieOfThatMonth = upcomingMovies.filter(movies =>{
+          // console.log(movies.releaseDate.getMonth());
+          // console.log(index);
+          if(upcomingMonth && upcomingYear) {
+            return movies.releaseDate.getMonth() === index && movies.releaseDate.getFullYear() === upcomingYear;
+            
+          }
+          else if(upcomingYear) {
+            return movies.releaseDate.getFullYear() === upcomingYear;
+          }
+          else if(upcomingMonth) return movies.releaseDate.getMonth() === index; 
+      })
+      // console.log(movieOfThatMonth);
+            return res.send({movies: movieOfThatMonth})
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
     }
   }
 }

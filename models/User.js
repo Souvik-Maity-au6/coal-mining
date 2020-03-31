@@ -53,7 +53,6 @@ panNo: {
    
     unique: true,
     validate: {
-
         validator: function (v) {
             return /([A-Z]){5}([0-9]){4}([A-Z]){1}$/.test(v);
         },
@@ -87,16 +86,16 @@ userSchema.statics.findByEmailAndPassword = async function(email, password) {
     let userObj = null;
         try{
             return new Promise(async function(resolve, reject) {
-                console.log("email:",email);
+                // console.log("email:",email);
                 const user = await userModel.find({ companyEmail: email })
                     //  console.log(user);
-                    if (user.length===0) reject("Incorrect credentials");
+                    if (user.length===0) return reject("Incorrect credentials");
                     userObj = user;
                     // console.log("user password :",user.password);
                     // console.log("password:",password);
                     const isMatched = await compare(password, user[0].password);
                 
-                    if (!isMatched) reject("Incorrect credentials");
+                    if (!isMatched) return reject("Incorrect credentials");
                     resolve(userObj);
                 
             });
