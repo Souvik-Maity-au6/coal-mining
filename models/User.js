@@ -80,6 +80,10 @@ sport: [{
     deault: null,
     ref: "sport"
 }],
+isLoggedIn:{
+    type:Boolean,
+    default:false
+}
 
 })
 userSchema.statics.findByEmailAndPassword = async function(email, password) {
@@ -105,6 +109,9 @@ userSchema.statics.findByEmailAndPassword = async function(email, password) {
     }
    
   };
+userSchema.methods.createLoggedIn= async function(){
+    this.isLoggedIn=true;
+}  
 userSchema.methods.generateToken= async function(){
 
     this.token= await sign({id:this._id},process.env.PRIVATE_KEY,{expiresIn:60*1});

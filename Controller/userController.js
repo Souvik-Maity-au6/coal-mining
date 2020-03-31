@@ -19,6 +19,7 @@ module.exports = {
                     {
                         const newUser = new userModel({...req.body});
                         await newUser.generateToken();
+
                         // console.log("new user token",newUser.token);
                         const user = await newUser.save();
                         let html= `<a href="http://localhost:1234/verify?token=${user.token}">Verify</a>`;
@@ -42,20 +43,26 @@ module.exports = {
             async login(req,res){
 
 
+              const {password,companyEmail}= req.body;
+                if(!password || !companyEmail)
+                return res.status(404).send({msg:"Invalid Credentials"});
               try{
-                    const {password,companyEmail}= req.body;
-                     if(!password || !companyEmail)
-                      return res.status(404).send({msg:"Invalid Credentials"});
+                    
                       // console.log(companyEmail);
                     const user = await userModel.findByEmailAndPassword(companyEmail,password);
-                    
-                    if(user[0].isAuthorized === true)
+                    if(user[0].token !==null)
+                      verify(user[0].token,process.env.PRIVATE_KEY);
+                    if(user[0].isAuthorized === true && user[0].isLoggedIn=== false)
                     {
                         user[0].generateToken();
+                        user[0].createLoggedIn();
                         await user[0].save();
                         return res.status(200).send({msg:`Welcome ${user[0].companyName}`,token:user[0].token});          
-                    } 
-                    else
+                    }
+                    else if(user[0].isAuthorized === true && user[0].isLoggedIn===true){
+                      return res.status(403).send({msg:"You are already logged in"});
+                    }
+                    else if(user[0].isAuthorized=== false)
                     {
                        return res.status(200).send({msg:"Your Account is not verified. Please check your email"});
                     }
@@ -65,9 +72,22 @@ module.exports = {
                   return res.send({msg:err});
                 else if(err.message ==="jwt expired")
                 {
-
+                  // this is repeated code please think about it should we place it in a function to encourage dry method
+                      // console.log("In catch block");
+                      const user = await userModel.findByEmailAndPassword(companyEmail,password);
+                      user[0].isLoggedIn=false;
+                      if(user[0].isAuthorized === true && user[0].isLoggedIn=== false)
+                      {
+                          user[0].generateToken();
+                          user[0].createLoggedIn();
+                          await user[0].save();
+                          return res.status(200).send({msg:`Welcome ${user[0].companyName}`,token:user[0].token});          
+                      }
+                      else if(user[0].isAuthorized=== false)
+                      {
+                        return res.status(200).send({msg:"Your Account is not verified. Please check your email"});
+                      }
                 }
-                console.log(err);
               }
             },
 
@@ -79,6 +99,7 @@ module.exports = {
                   const currentUser = req.user.id;
                   // console.log(req.user);
                   const user = await userModel.findById(currentUser);
+                  user.isLoggedIn=false;
                   // console.log(user)
                   if(user){
                       user.token = null;
