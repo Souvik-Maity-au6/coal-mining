@@ -93,7 +93,7 @@ userSchema.statics.findByEmailAndPassword = async function(email, password) {
                 // console.log("email:",email);
                 const user = await userModel.find({ companyEmail: email })
                     //  console.log(user);
-                    if (user.length===0) return reject("Incorrect credentials");
+                    if (user.length === 0) return reject("Incorrect credentials");
                     userObj = user;
                     // console.log("user password :",user.password);
                     // console.log("password:",password);
@@ -109,16 +109,16 @@ userSchema.statics.findByEmailAndPassword = async function(email, password) {
     }
    
   };
-userSchema.methods.createLoggedIn= async function(){
-    this.isLoggedIn=true;
+userSchema.methods.createLoggedIn = async function(){
+    this.isLoggedIn = true;
 }  
-userSchema.methods.generateToken= async function(){
+userSchema.methods.generateToken = async function(){
 
-    this.token= await sign({id:this._id},process.env.PRIVATE_KEY,{expiresIn:60*1});
+    this.token = await sign({id:this._id},process.env.PRIVATE_KEY,{expiresIn:60*1});
 }
-userSchema.statics.generateToken= async function(){
+userSchema.statics.generateToken = async function(){
 
-    this.token= await sign({id:this._id},process.env.PRIVATE_KEY,{expiresIn:60*1});
+    this.token = await sign({id:this._id},process.env.PRIVATE_KEY,{expiresIn:60*1});
 }
 userSchema.pre("save", async function(next) {
     var user = this;

@@ -68,7 +68,7 @@ const movieSchema = new Schema({
     releaseDate: {
         type: Date,
     },
-    threater: [{
+    theater: [{
         
             type: Schema.Types.ObjectId,
             ref: "theater"

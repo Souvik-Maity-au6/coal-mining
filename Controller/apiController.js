@@ -1,4 +1,4 @@
-
+const ObjectId = require("mongoose").Types.ObjectId;
 const cloudinary = require("../cloudinary");
 const movieModel = require("../models/movie");
 const cityModel = require("../models/City");
@@ -7,9 +7,6 @@ const seatModel = require("../models/Seat");
 const showModel = require("../models/showTime");
 const convert = require("../converter");
 
-// If the user document has the accessToken property to  something and not null 
-// If the accessToken is present, you could simply have a 403 response
-// If not login.
 
 
 module.exports = {
@@ -77,7 +74,7 @@ module.exports = {
     try{
 
         const movie = await movieModel.findById({_id:req.params.movieId});
-        movie.threater.push(req.params.theatreId);
+        movie.threater.push(req.params.theaterId);
         const addMovie = await movie.save();
         res.status(200).send({msg:"Sucessfully Uploaded",movie:addMovie});
     }
@@ -172,7 +169,61 @@ module.exports = {
     catch(err){
       res.status(400).send({ErrorMessage:err.message});
     }
+  },
+
+  // deleteTheater details
+
+  async deleteTheater(req, res){
+    try{
+      const theaterId = req.params.theaterId;
+      await theaterModel.findByIdAndDelete({_id: theaterId});
+      await movieModel.updateMany({}, {$pull: {theater: new ObjectId(theaterId)}}, { multi: true });
+      await seatModel.deleteMany({theater: theaterId});
+      await showModel.deleteMany({theater: theaterId});
+      return res.status(200).send({message: "Your theater has been permanently deleted"});
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
+  },
+
+  // deleteSeat detatils
+
+  async deleteSeat(req, res){
+    try{
+      const seatId = req.params.seatId;
+      await seatModel.findByIdAndDelete(seatId);
+      return res.status(200).send({message: "Your seat has been permanently deleted"});
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
+  },
+
+  // deleteShow details
+
+  async deleteShow(req, res){
+    try{
+      const showId = req.params.showId;
+      await showModel.findByIdAndDelete(showId);
+      return res.status(200).send({message: "Your show has been permanently deleted"});
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
+  },
+
+  // removeTheaterFromMovie
+
+  async removeTheaterFromMovie(req, res){
+    try{
+      const movieId = req.params.movieId;
+      const theaterId = req.params.theaterId;
+      await movieModel.updateOne({_id: movieId},{$pull: {theater: new ObjectId(theaterId)}});
+      return res.status(200).send({message: "Your theater has been permanently removed from movie"});
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
   }
-
-
 }

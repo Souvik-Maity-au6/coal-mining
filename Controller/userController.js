@@ -43,47 +43,47 @@ module.exports = {
             async login(req,res){
 
 
-              const {password,companyEmail}= req.body;
+              const {password,companyEmail} = req.body;
                 if(!password || !companyEmail)
                 return res.status(404).send({msg:"Invalid Credentials"});
               try{
                     
                       // console.log(companyEmail);
                     const user = await userModel.findByEmailAndPassword(companyEmail,password);
-                    if(user[0].token !==null)
+                    if(user[0].token !== null)
                       verify(user[0].token,process.env.PRIVATE_KEY);
-                    if(user[0].isAuthorized === true && user[0].isLoggedIn=== false)
+                    if(user[0].isAuthorized === true && user[0].isLoggedIn === false)
                     {
                         user[0].generateToken();
                         user[0].createLoggedIn();
                         await user[0].save();
                         return res.status(200).send({msg:`Welcome ${user[0].companyName}`,token:user[0].token});          
                     }
-                    else if(user[0].isAuthorized === true && user[0].isLoggedIn===true){
+                    else if(user[0].isAuthorized === true && user[0].isLoggedIn === true){
                       return res.status(403).send({msg:"You are already logged in"});
                     }
-                    else if(user[0].isAuthorized=== false)
+                    else if(user[0].isAuthorized === false)
                     {
                        return res.status(200).send({msg:"Your Account is not verified. Please check your email"});
                     }
               }
               catch(err){
-                if(err==="Incorrect credentials")
+                if(err === "Incorrect credentials")
                   return res.send({msg:err});
-                else if(err.message ==="jwt expired")
+                else if(err.message === "jwt expired")
                 {
                   // this is repeated code please think about it should we place it in a function to encourage dry method
                       // console.log("In catch block");
                       const user = await userModel.findByEmailAndPassword(companyEmail,password);
-                      user[0].isLoggedIn=false;
-                      if(user[0].isAuthorized === true && user[0].isLoggedIn=== false)
+                      user[0].isLoggedIn = false;
+                      if(user[0].isAuthorized === true && user[0].isLoggedIn === false)
                       {
                           user[0].generateToken();
                           user[0].createLoggedIn();
                           await user[0].save();
                           return res.status(200).send({msg:`Welcome ${user[0].companyName}`,token:user[0].token});          
                       }
-                      else if(user[0].isAuthorized=== false)
+                      else if(user[0].isAuthorized === false)
                       {
                         return res.status(200).send({msg:"Your Account is not verified. Please check your email"});
                       }
@@ -120,21 +120,21 @@ module.exports = {
         {
 
           try{
-            const {companyEmail,oldPassword,newPassword}= req.body;
+            const {companyEmail,oldPassword,newPassword} = req.body;
             if(!newPassword)
             {
               return res.status(403).send({msg:"Bad Request"});
             }
             else{
-                const pwdRegex= "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$";
+                const pwdRegex = "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$";
                 const pattern = new RegExp(pwdRegex);
                   if(pattern.test(newPassword))
                   {
                           const user = await userModel.find({_id:req.user.id});
                           // console.log(user);
                           // const newHashPassword = await hash(newPassword,10)
-                          user[0].password=newPassword;
-                          user[0].token=null;
+                          user[0].password = newPassword;
+                          user[0].token = null;
                           user[0].save()
                           return res.status(201).send({msg:"Password Changed Sucessfully"});
                   }
@@ -157,11 +157,11 @@ module.exports = {
             return res.send({msg:"Either you havent provides newpassword or company Email in json body"});
         }
         const user =  await userModel.find({companyEmail:companyEmail});
-        const pwdRegex= "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$";
+        const pwdRegex = "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$";
         const pattern = new RegExp(pwdRegex);
         if(pattern.test(newPassword))
         {
-            if(user.length!==0){
+            if(user.length !== 0){
               user[0].generateToken();
               await user[0].save();
               let html= `<a href="http://localhost:1234/forgotPassword/${newPassword}?token=${user[0].token}">Click Here to change the password</a>`;
