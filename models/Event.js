@@ -44,5 +44,5 @@ const eventSchema = Schema({
 
 });
 
-const eventModel = mongoose.model("songs",eventSchema);
+const eventModel = mongoose.model("events",eventSchema);
 module.exports=eventModel;

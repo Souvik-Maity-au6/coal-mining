@@ -3,8 +3,11 @@ const cloudinary = require("../cloudinary");
 const movieModel = require("../models/movie");
 const cityModel = require("../models/City");
 const theaterModel = require("../models/Theater");
+const sportModel = require("../models/Sports");
 const seatModel = require("../models/Seat");
 const showModel = require("../models/showTime");
+const tvModel = require("../models/TvSeries");
+const eventModel = require("../models/Event")
 const convert = require("../converter");
 
 
@@ -57,7 +60,7 @@ module.exports = {
         try{
 
           const newcity = new cityModel({...req.body})
-          const cuty = newcity.save();
+          const city = newcity.save();
           res.status(201).send({msg:"Sucessfully Uploaded",city:city});
         }
         catch(err){
@@ -65,7 +68,78 @@ module.exports = {
         }
   },
 
+  async addSports(req,res){
+      try{
+        if(req.file === undefined)
+          throw new Error("Please provide the poster");
+        const imageContent = convert(req.file.originalname, req.file.buffer);
+        req.body.city = req.params.cityId;
+        const {startingDate} = req.body;
+        if(startingDate === undefined)
+          throw new Error("Please Provide statting date");
+        req.body.startingDate = new Date(startingDate);
+        const image = await cloudinary.uploader.upload(imageContent);
+        req.body.posterImage = image.secure_url;
+        const newSport = new sportModel({...req.body});
+        // newSport.startingDate = new Date(startingDate);
+        const sport = await newSport.save();
+        return res.status(201).send({msg:"Sucessfully Uploaded",sport:sport});
 
+    }
+    catch(err){
+      return res.status(400).send({ErrorMessage:err.message});
+    }
+
+  },
+/// Add event 
+  async addEvent(req,res){
+      try{
+        console.log(req.body);
+            if(req.file === undefined)
+              throw new Error("Please provide the poster");
+          const imageContent = convert(req.file.originalname, req.file.buffer);
+          req.body.city = req.params.cityId;
+          const {date} = req.body;
+          if(date === undefined)
+            throw new Error("Please Provide statting date");
+          req.body.date = new Date(date);
+          const image = await cloudinary.uploader.upload(imageContent);
+          req.body.poster = image.secure_url;
+          console.log(req.body);
+          const newEvent = new eventModel({...req.body});
+          // newSport.startingDate = new Date(startingDate);
+          const event = await newEvent.save();
+          return res.status(201).send({msg:"Sucessfully Uploaded",event:event});
+      }
+      catch(err){
+        return res.status(400).send({ErrorMessage:err.message});
+      }
+  },
+
+  async addTvSeries(req,res){
+
+        try{
+          console.log(req.body);
+              if(req.file === undefined)
+                throw new Error("Please provide the poster");
+            const imageContent = convert(req.file.originalname, req.file.buffer);
+            const {releaseDate} = req.body;
+            if(releaseDate === undefined)
+              throw new Error("Please Provide release date");
+            req.body.releaseDate = new Date(releaseDate);
+            const image = await cloudinary.uploader.upload(imageContent);
+            req.body.posterImage = image.secure_url;
+            console.log(req.body);
+            const newTv = new tvModel({...req.body});
+            // newSport.startingDate = new Date(startingDate);
+            const tv = await newTv.save();
+            return res.status(201).send({msg:"Sucessfully Uploaded",tv:tv});
+        }
+        catch(err){
+          return res.status(400).send({ErrorMessage:err.message});
+        }
+
+  },
 
 ///----------------------------------------------------------------------////
 // addThreaterToMovie function for movie distribution to a perticular theater

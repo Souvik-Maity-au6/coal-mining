@@ -18,11 +18,11 @@ const tvSchema = new Schema({
     language: [{
         type: String
     }],
-    commingSoon: {
-        type: Date
+    upcoming: {
+        type: Boolean
     },
-    currentRunning: {
-        type: Date
+    currentlyRunning: {
+        type: Boolean
     },
     cast: [{
         type: String
@@ -62,6 +62,9 @@ const tvSchema = new Schema({
     }],
     summary: {
         type: String
+    },
+    releaseDate:{
+        type:Date
     },
     channelName:[{
         type:String,

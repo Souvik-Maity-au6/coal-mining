@@ -2,7 +2,8 @@
 const {Router} = require("express");
 const upload = require("../multer");
 const {authorization} = require("../middleware/authorization");
-const {addMovies,addTheater,addCity,addThreaterToMovie,addSeat,addShowTime, updateMovie, updateTheater, updateSeat, updateShowTime, deleteTheater, deleteSeat} = require("../Controller/apiController");
+const {addMovies,addTheater,addCity,addThreaterToMovie,addSeat,addShowTime, updateMovie, updateTheater,
+ updateSeat, updateShowTime, deleteTheater, deleteSeat,addSports,addEvent,addTvSeries} = require("../Controller/apiController");
 const {register,login, logout,changePassword,sendForgotPasswordEmail} = require("../Controller/userController");
 const router = Router();
 
@@ -29,7 +30,12 @@ router.patch("/updateTheater/:theaterId",authorization, updateTheater);
 router.patch("/updateSeat/:seatId",authorization, updateSeat);
 router.patch("/updateShowTime/:showId",authorization, updateShowTime);
 router.delete("/revomeTheater/:theaterId",authorization, deleteTheater);
-router.delete("removeSeat/:seatId",authorization, deleteSeat)
+router.delete("removeSeat/:seatId",authorization, deleteSeat);
+
+router.post("/addSport/:cityId",upload.single("posterImage"),addSports);
+router.post("/addEvent/:cityId",upload.single("poster"),addEvent);
+router.post("/addTvSeries",upload.single("posterImage"),addTvSeries);
+
 
 
 
