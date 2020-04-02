@@ -3,7 +3,8 @@ const {Router} = require("express");
 const upload = require("../multer");
 const {authorization} = require("../middleware/authorization");
 const {addMovies,addTheater,addCity,addThreaterToMovie,addSeat,addShowTime, updateMovie, updateTheater,
- updateSeat, updateShowTime, deleteTheater, deleteSeat,addSports,addEvent,addTvSeries} = require("../Controller/apiController");
+        updateSeat, updateShowTime, deleteTheater, deleteSeat,addSports,addEvent,addTvSeries,
+        updateEvent, updateSport, updateTvSeries, deleteSport, deleteEvent, deleteTvSeries} = require("../Controller/apiController");
 const {register,login, logout,changePassword,sendForgotPasswordEmail} = require("../Controller/userController");
 const router = Router();
 
@@ -32,9 +33,15 @@ router.patch("/updateShowTime/:showId",authorization, updateShowTime);
 router.delete("/revomeTheater/:theaterId",authorization, deleteTheater);
 router.delete("removeSeat/:seatId",authorization, deleteSeat);
 
-router.post("/addSport/:cityId",upload.single("posterImage"),addSports);
-router.post("/addEvent/:cityId",upload.single("poster"),addEvent);
-router.post("/addTvSeries",upload.single("posterImage"),addTvSeries);
+router.post("/addSport/:cityId",authorization, upload.single("posterImage"),addSports);
+router.post("/addEvent/:cityId",authorization, upload.single("poster"),addEvent);
+router.post("/addTvSeries",authorization, upload.single("posterImage"),addTvSeries);
+router.patch("/updateEvent/:eventID", authorization, updateEvent);
+router.patch("/updateSport/:sportId", authorization, updateSport);
+router.patch("/updateTvSeries/:tvSeriesId", authorization, updateTvSeries);
+router.delete("/deleteSport/:sportId", authorization, deleteSport);
+router.delete("/deleteEvent/:eventId", authorization, deleteEvent);
+router.delete("/deleteTvSeries/:tvSeriesId", authorization, deleteTvSeries);
 
 
 
@@ -46,5 +53,7 @@ router.post("/addTvSeries",upload.single("posterImage"),addTvSeries);
 
 
 
-module.exports=router;
+
+
+module.exports = router;
 

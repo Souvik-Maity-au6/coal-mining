@@ -245,6 +245,48 @@ module.exports = {
     }
   },
 
+  // updateSports details
+
+  async updateSport(req, res){
+    try{
+      const sportId = req.params.sportsId;
+      const updateSport = {...req.body};
+      await sportModel.updateOne({_id: sportId}, {updateSport}, {new: true});
+      return res.status(200).send({message: "your sport hase been updated Sucessfully", data: updateSport});
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
+  },
+
+  // updateEvent detail
+
+  async updateEvent(req, res){
+    try{
+      const eventId = req.params.eventId;
+      const updateEvent = {...req.body};
+      await eventModel.updateOne({_id: eventId}, {updateEvent}, {new: true});
+      return res.status(200).send({message: "your event hase been updated Sucessfully", data: updateEvent});
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
+  },
+
+  // updateTvSeries details
+
+  async updateTvSeries(req, res){
+    try{
+      const tvSeriesId = req.params.tvSeriesId;
+      const updateTvSeries = {...req.body};
+      await tvModel.updateOne({_id: tvSeriesId}, {updateTvSeries}, {new: true});
+      return res.status(200).send({message: "your tvSeries hase been updated Sucessfully", data: updateEvent});
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
+  },
+
   // deleteTheater details
 
   async deleteTheater(req, res){
@@ -299,5 +341,45 @@ module.exports = {
     catch(err){
       res.status(400).send({ErrorMessage:err.message});
     }
+  },
+
+  // deleteSport details
+
+  async deleteSport(req, res){
+    try{
+      const sportId = req.params.sportId;
+      await sportModel.findByIdAndDelete(sportId);
+      return res.status(200).send({message: "Your sport has been permanently deleted"});
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
+  },
+
+  // deleteEvent details
+
+  async deleteEvent(req, res){
+    try{
+      const eventId = req.params.eventId;
+      await eventModel.findByIdAndDelete(eventId);
+      return res.status(200).send({message: "Your event has been permanently deleted"});
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
+  },
+
+  // deleteTvSeries details
+
+  async deleteTvSeries(req, res){
+    try{
+      const tvSeriesId = req.params.tvSeriesId;
+      await tvModel.findByIdAndDelete(tvSeriesId);
+      return res.status(200).send({message: "Your Tv-Series has been permanently deleted"});
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
   }
+
 }
