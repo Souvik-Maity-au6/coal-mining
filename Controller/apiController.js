@@ -252,7 +252,7 @@ module.exports = {
     try{
       const seatId = req.params.seatId;
       const updateSeat = {...req.body};
-      await seatModel.updateOne({_id: seatId},{updateSeat}, {new: true});
+      await seatModel.updateOne({_id: seatId},{...req.body}, {new: true});
       return res.status(200).send({message: "your movie hase been updated Sucessfully", data: updateSeat});
     }
     catch(err){
@@ -266,7 +266,7 @@ module.exports = {
     try{
       const showId = req.params.showId;
       const updateShowTime = {...req.body};
-      await showModel.updateOne({_id: showId},{updateShowTime}, {new: true});
+      await showModel.updateOne({_id: showId},{...req.body}, {new: true});
       return res.status(200).send({message: "your movie hase been updated Sucessfully", data: updateShowTime});
     }
     catch(err){
@@ -280,7 +280,7 @@ module.exports = {
     try{
       const sportId = req.params.sportsId;
       const updateSport = {...req.body};
-      await sportModel.updateOne({_id: sportId}, {updateSport}, {new: true});
+      await sportModel.updateOne({_id: sportId}, {...req.body}, {new: true});
       return res.status(200).send({message: "your sport hase been updated Sucessfully", data: updateSport});
     }
     catch(err){
@@ -294,7 +294,7 @@ module.exports = {
     try{
       const eventId = req.params.eventId;
       const updateEvent = {...req.body};
-      await eventModel.updateOne({_id: eventId}, {updateEvent}, {new: true});
+      await eventModel.updateOne({_id: eventId}, {...req.body}, {new: true});
       return res.status(200).send({message: "your event hase been updated Sucessfully", data: updateEvent});
     }
     catch(err){
@@ -308,7 +308,7 @@ module.exports = {
     try{
       const tvSeriesId = req.params.tvSeriesId;
       const updateTvSeries = {...req.body};
-      await tvModel.updateOne({_id: tvSeriesId}, {updateTvSeries}, {new: true});
+      await tvModel.updateOne({_id: tvSeriesId}, {...req.body}, {new: true});
       return res.status(200).send({message: "your tvSeries hase been updated Sucessfully", data: updateEvent});
     }
     catch(err){

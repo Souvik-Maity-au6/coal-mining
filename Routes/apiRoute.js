@@ -38,7 +38,7 @@ router.post("/addEvent/:cityId",authorization, upload.single("poster"),addEvent)
 router.post("/addTvSeries",authorization, upload.single("posterImage"),addTvSeries);
 
 
-router.patch("/updateEvent/:eventID", authorization, updateEvent);
+router.patch("/updateEvent/:eventId", authorization, updateEvent);
 router.patch("/updateSport/:sportId", authorization, updateSport);
 router.patch("/updateTvSeries/:tvSeriesId", authorization, updateTvSeries);
 router.delete("/deleteSport/:sportId", authorization, deleteSport);
