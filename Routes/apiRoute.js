@@ -36,6 +36,8 @@ router.delete("removeSeat/:seatId",authorization, deleteSeat);
 router.post("/addSport/:cityId",authorization, upload.single("posterImage"),addSports);
 router.post("/addEvent/:cityId",authorization, upload.single("poster"),addEvent);
 router.post("/addTvSeries",authorization, upload.single("posterImage"),addTvSeries);
+
+
 router.patch("/updateEvent/:eventID", authorization, updateEvent);
 router.patch("/updateSport/:sportId", authorization, updateSport);
 router.patch("/updateTvSeries/:tvSeriesId", authorization, updateTvSeries);

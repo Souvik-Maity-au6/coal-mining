@@ -80,6 +80,11 @@ sport: [{
     deault: null,
     ref: "sport"
 }],
+event:[{
+    type:Schema.Types.ObjectId,
+    deault:null,
+    ref:"events"
+}],
 isLoggedIn:{
     type:Boolean,
     default:false
@@ -114,11 +119,11 @@ userSchema.methods.createLoggedIn = async function(){
 }  
 userSchema.methods.generateToken = async function(){
 
-    this.token = await sign({id:this._id},process.env.PRIVATE_KEY,{expiresIn:60*1});
+    this.token = await sign({id:this._id},process.env.PRIVATE_KEY,{expiresIn:60*10});
 }
 userSchema.statics.generateToken = async function(){
 
-    this.token = await sign({id:this._id},process.env.PRIVATE_KEY,{expiresIn:60*1});
+    this.token = await sign({id:this._id},process.env.PRIVATE_KEY,{expiresIn:60*10});
 }
 userSchema.pre("save", async function(next) {
     var user = this;

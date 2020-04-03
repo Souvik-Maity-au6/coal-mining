@@ -7,6 +7,7 @@ const sportModel = require("../models/Sports");
 const seatModel = require("../models/Seat");
 const showModel = require("../models/showTime");
 const tvModel = require("../models/TvSeries");
+const userModel = require("../models/User");
 const eventModel = require("../models/Event")
 const convert = require("../converter");
 
@@ -18,18 +19,22 @@ module.exports = {
     async addMovies(req, res) {
         // console.log("IN ADD MOVIES CONTROLLER");
         try{
-
-            const imageContent = convert(req.file.originalname, req.file.buffer);
-            const {releaseDate} = req.body;
-            const date = new Date(releaseDate);
-            const image = await cloudinary.uploader.upload(imageContent);
-            req.body.posterImage = image.secure_url;
-            req.body.releaseDate = date;
-            req.body.threatre = req.params.theatreId;
-            let newMovie = new movieModel(req.body);
-            const uploadedMovie = await newMovie.save();
-            // console.log(uploadedMovie);
-             res.status(201).send({msg:"Sucessfully Uploaded",data:uploadedMovie});
+              const imageContent = convert(req.file.originalname, req.file.buffer);
+              const {releaseDate} = req.body;
+              const date = new Date(releaseDate);
+              const image = await cloudinary.uploader.upload(imageContent);
+              req.body.posterImage = image.secure_url;
+              req.body.releaseDate = date;
+              req.body.threatre = req.params.theatreId;
+              let newMovie = new movieModel(req.body);
+              const uploadedMovie = await newMovie.save();
+              // console.log(req.user.id);
+              const user = await userModel.find(ObjectId(req.user.id));
+              // console.log(user);
+              user[0].movie.push(uploadedMovie._id);
+              user[0].save();
+              // console.log(uploadedMovie);
+              res.status(201).send({msg:"Sucessfully Uploaded",data:uploadedMovie});
         }
         catch( err){
             res.status(400).send({ErrorMessage:err.message});
@@ -44,6 +49,11 @@ module.exports = {
           req.body.city = req.params.cityId;
           const newTheater = new theaterModel({...req.body});
           const theater = await newTheater.save();
+          const user = await userModel.find(ObjectId(req.user.id));
+            console.log(theater._id);
+          user[0].theatre.push(theater._id);
+          // console.log(user);
+          user[0].save();
           return res.status(201).send({msg:"Sucessfully Uploaded",theater:theater});
 
       }
@@ -70,21 +80,26 @@ module.exports = {
 
   async addSports(req,res){
       try{
-        if(req.file === undefined)
-          throw new Error("Please provide the poster");
-        const imageContent = convert(req.file.originalname, req.file.buffer);
-        req.body.city = req.params.cityId;
-        const {startingDate} = req.body;
-        if(startingDate === undefined)
-          throw new Error("Please Provide statting date");
-        req.body.startingDate = new Date(startingDate);
-        const image = await cloudinary.uploader.upload(imageContent);
-        req.body.posterImage = image.secure_url;
-        const newSport = new sportModel({...req.body});
-        // newSport.startingDate = new Date(startingDate);
-        const sport = await newSport.save();
-        return res.status(201).send({msg:"Sucessfully Uploaded",sport:sport});
-
+          if(req.file === undefined)
+            throw new Error("Please provide the poster");
+          const imageContent = convert(req.file.originalname, req.file.buffer);
+          req.body.city = req.params.cityId;
+          const {startingDate} = req.body;
+          if(startingDate === undefined)
+            throw new Error("Please Provide statting date");
+          req.body.startingDate = new Date(startingDate);
+          const image = await cloudinary.uploader.upload(imageContent);
+          req.body.posterImage = image.secure_url;
+          const newSport = new sportModel({...req.body});
+         
+          // newSport.startingDate = new Date(startingDate);
+          const sport = await newSport.save();
+          const user = await userModel.find(ObjectId(req.user.id));
+          // console.log(theater._id);
+          user[0].sport.push(sport._id);
+          // console.log(user);
+          user[0].save();
+          return res.status(201).send({msg:"Sucessfully Uploaded",sport:sport});
     }
     catch(err){
       return res.status(400).send({ErrorMessage:err.message});
@@ -94,22 +109,29 @@ module.exports = {
 /// Add event 
   async addEvent(req,res){
       try{
-        console.log(req.body);
-            if(req.file === undefined)
-              throw new Error("Please provide the poster");
-          const imageContent = convert(req.file.originalname, req.file.buffer);
-          req.body.city = req.params.cityId;
-          const {date} = req.body;
-          if(date === undefined)
-            throw new Error("Please Provide statting date");
-          req.body.date = new Date(date);
-          const image = await cloudinary.uploader.upload(imageContent);
-          req.body.poster = image.secure_url;
           console.log(req.body);
-          const newEvent = new eventModel({...req.body});
-          // newSport.startingDate = new Date(startingDate);
-          const event = await newEvent.save();
-          return res.status(201).send({msg:"Sucessfully Uploaded",event:event});
+          if(req.file === undefined)
+            throw new Error("Please provide the poster");
+        const imageContent = convert(req.file.originalname, req.file.buffer);
+        req.body.city = req.params.cityId;
+        const {date} = req.body;
+        if(date === undefined)
+          throw new Error("Please Provide statting date");
+        req.body.date = new Date(date);
+        const image = await cloudinary.uploader.upload(imageContent);
+        req.body.poster = image.secure_url;
+        console.log(req.body);
+        const newEvent = new eventModel({...req.body});
+        // newSport.startingDate = new Date(startingDate);
+        const event = await newEvent.save();
+
+        const user = await userModel.find(ObjectId(req.user.id));
+      // console.log(theater._id);
+        user[0].event.push(event._id);
+        // console.log(user);
+        user[0].save();
+        
+        return res.status(201).send({msg:"Sucessfully Uploaded",event:event});
       }
       catch(err){
         return res.status(400).send({ErrorMessage:err.message});
@@ -119,21 +141,28 @@ module.exports = {
   async addTvSeries(req,res){
 
         try{
-          console.log(req.body);
-              if(req.file === undefined)
-                throw new Error("Please provide the poster");
-            const imageContent = convert(req.file.originalname, req.file.buffer);
-            const {releaseDate} = req.body;
-            if(releaseDate === undefined)
-              throw new Error("Please Provide release date");
-            req.body.releaseDate = new Date(releaseDate);
-            const image = await cloudinary.uploader.upload(imageContent);
-            req.body.posterImage = image.secure_url;
+        
             console.log(req.body);
-            const newTv = new tvModel({...req.body});
-            // newSport.startingDate = new Date(startingDate);
-            const tv = await newTv.save();
-            return res.status(201).send({msg:"Sucessfully Uploaded",tv:tv});
+                if(req.file === undefined)
+                  throw new Error("Please provide the poster");
+              const imageContent = convert(req.file.originalname, req.file.buffer);
+              const {releaseDate} = req.body;
+              if(releaseDate === undefined)
+                throw new Error("Please Provide release date");
+              req.body.releaseDate = new Date(releaseDate);
+              const image = await cloudinary.uploader.upload(imageContent);
+              req.body.posterImage = image.secure_url;
+              console.log(req.body);
+              const newTv = new tvModel({...req.body});
+              // newSport.startingDate = new Date(startingDate);
+              const tv = await newTv.save();
+
+              const user = await userModel.find(ObjectId(req.user.id));
+            // console.log(theater._id);
+              user[0].tvSeries.push(tv._id);
+              // console.log(user);
+              user[0].save();
+              return res.status(201).send({msg:"Sucessfully Uploaded",tv:tv});
         }
         catch(err){
           return res.status(400).send({ErrorMessage:err.message});
