@@ -1,5 +1,5 @@
-const {createTransport}= require("nodemailer");
-module.exports={
+const {createTransport} = require("nodemailer");
+module.exports = {
 
       async mailConfig(html,newUser){
 
@@ -19,7 +19,7 @@ module.exports={
             }
         })
         const response = await transport.verify();
-        console.log(response);
+        // console.log(response);
             const mail = await transport.sendMail({
 
 

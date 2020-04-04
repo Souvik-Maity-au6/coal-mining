@@ -5,7 +5,7 @@ module.exports={
 
     async authorization(req,res,next){
         try{
-            token = verify(req.headers.authorization,process.env.PRIVATE_KEY);
+           let token = verify(req.headers.authorization,process.env.PRIVATE_KEY);
             // console.log(token);
             req.user = token;
             next();
