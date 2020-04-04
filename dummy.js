@@ -8,3 +8,8 @@ console.log(typeof(d.getTimezoneOffset()));
 // // console.log(toTimestamp(d));
 // console.log(Date.now()-d.getTime());
 console.log(d.getFullYear());
+
+
+language=["English","Hindi"];
+
+console.log(language.includes("Hindi"));

@@ -176,6 +176,5 @@ module.exports = {
           return res.send({msg:"Invalid New Password"});
         }
         
-      }
-      
+      }   
 }

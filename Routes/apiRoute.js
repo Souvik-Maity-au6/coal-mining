@@ -21,7 +21,7 @@ router.post("/forgotPassword",sendForgotPasswordEmail);
 // ----------------------------Data Routes ---------------------//
 
 router.post("/addMovies",authorization, upload.single("posterImage"),addMovies);
-router.post("/addTheater/:cityId",authorization, addTheater);
+router.post("/addTheater/:cityId", authorization,addTheater);
 router.post("/addCity",authorization,addCity);
 router.post("/addTheater/movie/:theaterId/:movieId",authorization, addThreaterToMovie);
 router.post("/addSeat/:theaterId",authorization,addSeat);
@@ -44,18 +44,6 @@ router.patch("/updateTvSeries/:tvSeriesId", authorization, updateTvSeries);
 router.delete("/deleteSport/:sportId", authorization, deleteSport);
 router.delete("/deleteEvent/:eventId", authorization, deleteEvent);
 router.delete("/deleteTvSeries/:tvSeriesId", authorization, deleteTvSeries);
-
-
-
-
-
-
-
-
-
-
-
-
 
 module.exports = router;
 

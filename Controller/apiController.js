@@ -177,7 +177,7 @@ module.exports = {
     try{
 
         const movie = await movieModel.findById({_id:req.params.movieId});
-        movie.threater.push(req.params.theaterId);
+        movie.theater.push(req.params.theaterId);
         const addMovie = await movie.save();
         res.status(200).send({msg:"Sucessfully Uploaded",movie:addMovie});
     }
