@@ -4,13 +4,28 @@ const {hash,compare} = require("bcryptjs");
 // const {createTransport}= require("nodemailer");
 const {sign,verify}= require("jsonwebtoken");
 const cmail = require("../sendMail");
-
+let tok;
 
 
 module.exports = {
 
 // ---------------------------- Rgister user to db--------------------------- //
+
+        async changeEmail(req,res){
+
+              const {email}=req.body;
+              const token = req.user;
+              console.log("token:",token);
+              const token = req.headers.authorization;
+              const updatedUser = await userModel.updateOne({token:token,companyEmail:email});
+              console.log(updatedUser);
+              let html= `<a href="http://localhost:1234/verify?token=${token}">Verify</a>`;
+              await cmail.mailConfig(html,updatedUser);
+              return res.status(200).send({msg:"User registered sucessfully. Check your Email",Warning:"Didnot get email?Update your email",token:user.token});
+        },
+
           async register(req,res){
+
                 try{
                     const {password,companyEmail}= req.body;
                     const pwdRegex= "^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{6,16}$";
@@ -18,13 +33,12 @@ module.exports = {
                     if(pattern.test(password))
                     {
                         const newUser = new userModel({...req.body});
-                        await newUser.generateToken();
-
+                        tok = await newUser.generateToken();
                         // console.log("new user token",newUser.token);
                         const user = await newUser.save();
                         let html= `<a href="http://localhost:1234/verify?token=${user.token}">Verify</a>`;
                         await cmail.mailConfig(html,newUser);
-                        return res.status(200).send({msg:"User registered sucessfully. Check your Email",token:user.token});
+                        return res.status(200).send({msg:"User registered sucessfully. Check your Email",Warning:"Didnot get email?Update your email",token:user.token});
                     }
                     else
                     {

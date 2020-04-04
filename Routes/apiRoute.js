@@ -5,7 +5,7 @@ const {authorization} = require("../middleware/authorization");
 const {addMovies,addTheater,addCity,addThreaterToMovie,addSeat,addShowTime, updateMovie, updateTheater,
         updateSeat, updateShowTime, deleteTheater, deleteSeat,addSports,addEvent,addTvSeries,
         updateEvent, updateSport, updateTvSeries, deleteSport, deleteEvent, deleteTvSeries} = require("../Controller/apiController");
-const {register,login, logout,changePassword,sendForgotPasswordEmail} = require("../Controller/userController");
+const {register,login, logout,changePassword,sendForgotPasswordEmail,changeEmail} = require("../Controller/userController");
 const router = Router();
 
 
@@ -16,6 +16,7 @@ router.post("/login",login);
 router.delete("/logout", authorization, logout);
 router.post("/changePassword",authorization,changePassword);
 router.post("/forgotPassword",sendForgotPasswordEmail);
+router.patch("/changeEmail",changeEmail);
 
 
 // ----------------------------Data Routes ---------------------//
