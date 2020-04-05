@@ -19,10 +19,12 @@ const tvSchema = new Schema({
         type: String
     }],
     upcoming: {
-        type: Boolean
+        type: Boolean,
+        default:false
     },
     currentlyRunning: {
-        type: Boolean
+        type: Boolean,
+        default:false
     },
     cast: [{
         type: String

@@ -1,7 +1,8 @@
 const {Router} = require("express");
 const {searchTheater,getAllMovies, getSingleMovie,verify,resendEmail,resetPassword, 
-searchUpcomingMovie,getTopRatedMovies,getAllCurrentMovies,getSeatDetails,
-searchTheaterByCity,searchTheaterByAvailableScreen,getShowTiming} = require("../Controller/normalController");
+        searchUpcomingMovie,getTopRatedMovies,getAllCurrentMovies,getSeatDetails,
+        searchTheaterByCity,searchTheaterByAvailableScreen,getShowTiming, searchSingleTvSeries, searchUpcomingTvSeries,
+        searchCurrentTvSeries, searchEvent} = require("../Controller/normalController");
 const router = Router();
 
 
@@ -17,7 +18,10 @@ router.get("/getTopRatedMovies",getTopRatedMovies);
 router.get("/getCurrentlyRunningMovies",getAllCurrentMovies);
 // router.get("/getTheater",search);
 router.get("/searchUpcomingMovie", searchUpcomingMovie);
-
+router.get("/searchSingleTvSeries", searchSingleTvSeries);
+router.get("/searchUpcomingTvSeries", searchUpcomingTvSeries);
+router.get("/searchCurrentTvSeries", searchCurrentTvSeries);
+router.get("/searchEvent", searchEvent);
 
 router.get("/resendEmail",resendEmail);
 router.get("/verify",verify);
