@@ -323,7 +323,7 @@ module.exports = {
   async searchEvent(req, res){
     try{
       const eventType = req.quary.event;
-      const event = await eventModel.find({type: eventType});
+      const event = await eventModel.find({ename: eventType});
       if(event.length === 0 ){
         return res.staus(404).send("No such event currently running search latter");
       }else{
