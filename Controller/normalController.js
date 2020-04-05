@@ -7,6 +7,8 @@ const theaterModel = require("../models/Theater");
 const {mailConfig} = require("../sendMail");
 const {verify,sign}= require("jsonwebtoken");
 const showModel = require("../models/showTime");
+const tvModel = require("../models/TvSeries");
+const eventModel = require("../models/Event");
 
 
 
@@ -268,6 +270,66 @@ module.exports = {
       })
       // console.log(movieOfThatMonth);
             return res.send({movies: movieOfThatMonth})
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
+  },
+  
+  // Tv-Series related Search operation
+  async searchSingleTvSeries(req, res){
+    try{
+      const tvSeriesName = req.query.name;
+     const tvSeries =  await tvModel.find({seriesName: tvSeriesName});
+     if(tvSeries.length === 0 ){
+       return res.status(404).send("Tv-Series not found search another")
+     }else{
+       return res.send(tvSeries);
+     }
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
+  },
+ 
+  async searchUpcomingTvSeries(req, res){
+    try{
+      const upcomingTvSeries = tvModel.find({upcoming: true});
+      if(upcomingTvSeries.length === 0){
+        return res.status(404).send("No Upcoming Tv-Series avilable right now search latter");
+      }else{
+        return res.send(upcomingTvSeries);
+      }
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
+  },
+
+  async searchCurrentTvSeries(req, res){
+    try{
+      const currentTvSeries = tvModel.find({currentlyRunning: true});
+      if(currentTvSeries.length === 0){
+        return res.status(404).send("No Current Tv-Series avilable right now search latter");
+      }else{
+        return res.send(currentTvSeries);
+      }
+    }
+    catch(err){
+      res.status(400).send({ErrorMessage:err.message});
+    }
+  },
+
+  async searchEvent(req, res){
+    try{
+      const eventType = req.quary.event;
+      const event = await eventModel.find({type: eventType});
+      if(event.length === 0 ){
+        return res.staus(404).send("No such event currently running search latter");
+      }else{
+        return res. send(event);
+      }
+
     }
     catch(err){
       res.status(400).send({ErrorMessage:err.message});
