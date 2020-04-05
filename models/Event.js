@@ -9,6 +9,10 @@ const eventSchema = Schema({
        type:String,
        required:[true,"Please Enter the event name"],
    },
+   type:{
+        type:String,
+        required:[true,"Please Enter the event type"]
+   },
    artist:{
        type:String,
        required:[true,"Please provide artist name"]

@@ -322,10 +322,11 @@ module.exports = {
 
   async searchEvent(req, res){
     try{
-      const eventType = req.quary.event;
-      const event = await eventModel.find({ename: eventType});
+      const eventType = req.query.type;
+      const event = await eventModel.find({type: eventType});
+      // console.log(event);
       if(event.length === 0 ){
-        return res.staus(404).send("No such event currently running search latter");
+        return res.status(404).send("No such event currently running search latter");
       }else{
         return res. send(event);
       }
