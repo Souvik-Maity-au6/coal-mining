@@ -23,7 +23,7 @@ module.exports = {
                  await newUser.generateToken();
                 // console.log("new user token",newUser.token);
                 const user = await newUser.save();
-                let html= `<a href="http://localhost:1234/verify?token=${user.token}">Verify</a>`;
+                let html= `<a href="${process.env.USER_VERIFY_LINK}verify?token=${user.token}">Verify</a>`;
                 await cmail.mailConfig(html,newUser);
                 return res.status(200).send({msg:"User registered sucessfully. Check your Email",Warning:"Didnot get email?Update your email",token:user.token});
             }
@@ -44,11 +44,11 @@ module.exports = {
     async changeEmail(req,res){
         try{
                const updateEmail = await userModel.updateOne({token: req.headers.authorization},{...req.body}, {new: true});
-               console.log(updateEmail);
+              //  console.log(updateEmail);
                if(updateEmail.nModified !== 0){
                 const updatedUser = await userModel.find({companyEmail: req.body.companyEmail});
               //  console.log(updatedUser)
-              let html= `<a href="http://localhost:1234/verify?token=${req.headers.authorization}">Verify</a>`;
+              let html= `<a href="${process.env.USER_VERIFY_LINK}verify?token=${req.headers.authorization}">Verify</a>`;
               await cmail.mailConfig(html,updatedUser[0]);
               return res.status(200).send({msg:"Check your Email for varyfication"});
                }

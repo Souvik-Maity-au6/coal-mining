@@ -2,6 +2,8 @@ const express = require("express");
 const apiRoutes = require("./Routes/apiRoute");
 const normalRoutes = require("./Routes/normalRoutes");
 const dotenv = require("dotenv");
+dotenv.config();
+
 require("./db");
 
 
@@ -10,7 +12,7 @@ const app = express();
 const PORT = process.env.PORT || 1234;
 
 
-dotenv.config();
+
 app.use(express.json());
 app.use(express.urlencoded({extended:true}));
 app.use(apiRoutes);
@@ -30,8 +32,8 @@ app.use(function(err,req,res,next){
 })
 
 
-app.post("/",(req,res)=>{
-    console.log(req.body);
+app.get("/",(req,res)=>{
+    return res.send({message: "Welcome To the Entertainment and Sports API"})
 })
 
 
