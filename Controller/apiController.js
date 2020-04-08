@@ -65,18 +65,18 @@ module.exports = {
 
   ///---------------------------------------------------------------////
 //addCity function for addition of city to the db
-  async addCity(req,res){
-        // console.log(req.body);
-        try{
+  // async addCity(req,res){
+  //       // console.log(req.body);
+  //       try{
 
-          const newcity = new cityModel({...req.body})
-          const city = newcity.save();
-          res.status(201).send({msg:"Sucessfully Uploaded",city:city});
-        }
-        catch(err){
-          return res.status(400).send({ErrorMessage:err.message});
-        }
-  },
+  //         const newcity = new cityModel({...req.body})
+  //         const city = newcity.save();
+  //         res.status(201).send({msg:"Sucessfully Uploaded",city:city});
+  //       }
+  //       catch(err){
+  //         return res.status(400).send({ErrorMessage:err.message});
+  //       }
+  // },
 
   async addSports(req,res){
       try{

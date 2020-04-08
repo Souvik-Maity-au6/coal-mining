@@ -23,7 +23,7 @@ router.patch("/changeEmail",changeEmail);
 
 router.post("/addMovies",authorization, upload.single("posterImage"),addMovies);
 router.post("/addTheater/:cityId", authorization,addTheater);
-router.post("/addCity",authorization,addCity);
+// router.post("/addCity",authorization,addCity);
 router.post("/addTheater/movie/:theaterId/:movieId",authorization, addThreaterToMovie);
 router.post("/addSeat/:theaterId",authorization,addSeat);
 router.post("/addShowTime/:movieId/:theaterId",authorization,addShowTime);

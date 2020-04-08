@@ -104,7 +104,7 @@ module.exports = {
                       user[0].generateToken();
                       user[0].createLoggedIn();
                       await user[0].save();
-                      return res.status(200).send({msg:`Welcome ${user[0].companyName}`,token:user[0].token});          
+                      return res.status(200).send({msg:`Welcome ${user[0].companyName}`,token:user[0].token, profile: user[0]});          
                   }
                   else if(user[0].isAuthorized === false)
                   {
