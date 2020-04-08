@@ -24,7 +24,7 @@ router.get("/searchUpcomingTvSeries", searchUpcomingTvSeries);
 router.get("/searchCurrentTvSeries", searchCurrentTvSeries);
 router.get("/searchEvent", searchEvent);
 router.get("/searchCity/event", searchCityEvents);
-router.get("searchSports", searchSports);
+router.get("/searchSports", searchSports);
 router.get("/searchCity/sports", searchCitySports);
 
 
