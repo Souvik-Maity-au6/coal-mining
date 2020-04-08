@@ -46,7 +46,6 @@ const movieSchema = new Schema({
     },
     Runtime: {
         type: String,
-        required:[true,"Please provide the running time"]
     },
     imdRating: {
         type: Number,
