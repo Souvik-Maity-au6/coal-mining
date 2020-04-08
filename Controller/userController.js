@@ -157,6 +157,7 @@ module.exports = {
                       // console.log(user);
                       // const newHashPassword = await hash(newPassword,10)
                       user[0].password = newPassword;
+                      user[0].isLoggedIn = false;
                       user[0].token = null;
                       user[0].save()
                       return res.status(201).send({msg:"Password Changed Sucessfully"});
