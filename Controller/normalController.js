@@ -213,7 +213,7 @@ module.exports = {
         // console.log("Hello Iam going to resend Email");
         user[0].generateToken();
         const updatedUser = await user[0].save();
-        let html= `<a href="http://localhost:1234/verify?token=${updatedUser.token}">Verify</a>`;
+        let html= `${process.env.USER_VERIFY_LINK}verify?token=${updatedUser.token}">Verify</a>`;
         await mailConfig(html,user[0]);
         return  res.send("Your token was expired so we send another conformation email so please check your inbox");
   },

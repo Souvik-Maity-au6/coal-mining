@@ -186,7 +186,7 @@ module.exports = {
         if(user.length !== 0){
           user[0].generateToken();
           await user[0].save();
-          let html= `<a href="http://localhost:1234/forgotPassword/${newPassword}?token=${user[0].token}">Click Here to change the password</a>`;
+          let html= `<a href="${process.env.USER_VERIFY_LINK}forgotPassword/${newPassword}?token=${user[0].token}">Click Here to change the password</a>`;
           const email = await cmail.mailConfig(html,user[0]);
           return res.status(200).send({msg:"Change Password link has been send . Please Check your Email to change password",token:user.token});        }
         else{
