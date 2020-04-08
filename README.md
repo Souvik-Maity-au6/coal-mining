@@ -39,113 +39,113 @@ Project done by Abhijeet and Souvik
 
 1. Movie Provider Routes : 
 
-        * Registering Movie Provider 
+    * Registering Movie Provider 
 
-            > POST https://entertainment-sports.herokuapp.com/register
+        > POST https://entertainment-sports.herokuapp.com/register
 
-        * Provider Account Activation
+    * Provider Account Activation
 
-            > GET https://entertainment-sports.herokuapp.com/verify?token=${user.token}
+        > GET https://entertainment-sports.herokuapp.com/verify?token=${user.token}
 
-        * Logging into Provider Account
+    * Logging into Provider Account
 
-            > POST https://entertainment-sports.herokuapp.com/login
+        > POST https://entertainment-sports.herokuapp.com/login
 
-        * Provide Movie
+    * Provide Movie
 
-            > POST https://entertainment-sports.herokuapp.com/addMovie
+        > POST https://entertainment-sports.herokuapp.com/addMovie
 
-        * Update Movie 
+    * Update Movie 
 
-            > PATCH https://entertainment-sports.herokuapp.com/updateMovie
+        > PATCH https://entertainment-sports.herokuapp.com/updateMovie
 
-        * See Profile 
+    * See Profile 
 
-            > GET https://entertainment-sports.herokuapp.com/seeProfile
+        > GET https://entertainment-sports.herokuapp.com/seeProfile
 
-        * Change Password 
+    * Change Password 
 
-            > POST https://entertainment-sports.herokuapp.com/changePassword
+        > POST https://entertainment-sports.herokuapp.com/changePassword
 
-        * Forgot Password 
+    * Forgot Password 
 
-            > POST https://entertainment-sports.herokuapp.com/forgotPassword
+        > POST https://entertainment-sports.herokuapp.com/forgotPassword
 
-        * Logout from account
+    * Logout from account
 
-            > DELETE https://entertainment-sports.herokuapp.com/logout
+        > DELETE https://entertainment-sports.herokuapp.com/logout
 
 2. Theater Owner Routes
 
-        * Registering Movie Provider 
+    * Registering Movie Provider 
 
-            > POST https://entertainment-sports.herokuapp.com/register
+        > POST https://entertainment-sports.herokuapp.com/register
 
-        * Provider Account Activation
+    * Provider Account Activation
 
-            > GET https://entertainment-sports.herokuapp.com/verify?token=${user.token}
+        > GET https://entertainment-sports.herokuapp.com/verify?token=${user.token}
 
-        * Logging into Provider Account
+    * Logging into Provider Account
 
-            > POST https://entertainment-sports.herokuapp.com/login
+        > POST https://entertainment-sports.herokuapp.com/login
 
-        * Provide Movie
+    * Provide Movie
 
-            > POST https://entertainment-sports.herokuapp.com/addMovie
+        > POST https://entertainment-sports.herokuapp.com/addMovie
 
-        * Update Movie 
+    * Update Movie 
 
-            > PATCH https://entertainment-sports.herokuapp.com/updateMovie
+        > PATCH https://entertainment-sports.herokuapp.com/updateMovie
 
-        * See Profile 
+    * See Profile 
 
-            > GET https://entertainment-sports.herokuapp.com/seeProfile
+        > GET https://entertainment-sports.herokuapp.com/seeProfile
 
-        * Change Password 
+    * Change Password 
 
-            > POST https://entertainment-sports.herokuapp.com/changePassword
+        > POST https://entertainment-sports.herokuapp.com/changePassword
 
-        * Forgot Password 
+    * Forgot Password 
 
-            > POST https://entertainment-sports.herokuapp.com/forgotPassword
+        > POST https://entertainment-sports.herokuapp.com/forgotPassword
 
-        * Logout from account
+    * Logout from account
 
-            > DELETE https://entertainment-sports.herokuapp.com/logout
+        > DELETE https://entertainment-sports.herokuapp.com/logout
 
-        * Delete Theater details
+    * Delete Theater details
 
-            > DELETE https://entertainment-sports.herokuapp.com/logout/revomeTheater/:theaterId
+        > DELETE https://entertainment-sports.herokuapp.com/logout/revomeTheater/:theaterId
 
 3. Events organiser routes
 
-        * Registering Movie Provider 
+    * Registering Movie Provider 
 
-            > POST https://entertainment-sports.herokuapp.com/register
+        > POST https://entertainment-sports.herokuapp.com/register
 
-        * Provider Account Activation
+    * Provider Account Activation
 
-            > GET https://entertainment-sports.herokuapp.com/verify?token=${user.token}
+        > GET https://entertainment-sports.herokuapp.com/verify?token=${user.token}
 
-        * Logging into Provider Account
+    * Logging into Provider Account
 
-            > POST https://entertainment-sports.herokuapp.com/login
+        > POST https://entertainment-sports.herokuapp.com/login
 
-        * Provide Movie
+    * Provide Movie
 
-            > POST https://entertainment-sports.herokuapp.com/addMovie
+        > POST https://entertainment-sports.herokuapp.com/addMovie
 
-        * Update Movie 
+    * Update Movie 
 
-            > PATCH https://entertainment-sports.herokuapp.com/updateMovie
+        > PATCH https://entertainment-sports.herokuapp.com/updateMovie
 
-        * See Profile 
+    * See Profile 
 
-            > GET https://entertainment-sports.herokuapp.com/seeProfile
+        > GET https://entertainment-sports.herokuapp.com/seeProfile
 
-        * Change Password 
+    * Change Password 
 
-            > POST https://entertainment-sports.herokuapp.com/changePassword
+        > POST https://entertainment-sports.herokuapp.com/changePassword
 
         * Forgot Password 
 
@@ -161,37 +161,37 @@ Project done by Abhijeet and Souvik
 
 4. Sports organiser routes
 
-        * Registering Movie Provider 
+    * Registering Movie Provider 
 
-            > POST https://entertainment-sports.herokuapp.com/register
+        > POST https://entertainment-sports.herokuapp.com/register
 
-        * Provider Account Activation
+    * Provider Account Activation
 
-            > GET https://entertainment-sports.herokuapp.com/verify?token=${user.token}
+        > GET https://entertainment-sports.herokuapp.com/verify?token=${user.token}
 
-        * Logging into Provider Account
+    * Logging into Provider Account
 
-            > POST https://entertainment-sports.herokuapp.com/login
+        > POST https://entertainment-sports.herokuapp.com/login
 
-        * Provide Movie
+    * Provide Movie
 
-            > POST https://entertainment-sports.herokuapp.com/addMovie
+        > POST https://entertainment-sports.herokuapp.com/addMovie
 
-        * Update Movie 
+    * Update Movie 
 
-            > PATCH https://entertainment-sports.herokuapp.com/updateMovie
+        > PATCH https://entertainment-sports.herokuapp.com/updateMovie
 
-        * See Profile 
+    * See Profile 
 
-            > GET https://entertainment-sports.herokuapp.com/seeProfile
+        > GET https://entertainment-sports.herokuapp.com/seeProfile
 
-        * Change Password 
+    * Change Password 
 
-            > POST https://entertainment-sports.herokuapp.com/changePassword
+        > POST https://entertainment-sports.herokuapp.com/changePassword
 
-        * Forgot Password 
+    * Forgot Password 
 
-            > POST https://entertainment-sports.herokuapp.com/forgotPassword
+        > POST https://entertainment-sports.herokuapp.com/forgotPassword
 
         * Logout from account
 
@@ -203,45 +203,34 @@ Project done by Abhijeet and Souvik
 
 5. TV-Series Routes
 
-        * Registering Movie Provider 
+    * Registering Movie Provider 
+        > POST https://entertainment-sports.herokuapp.com/register
 
-            > POST https://entertainment-sports.herokuapp.com/register
+    * Provider Account Activation
+        > GET https://entertainment-sports.herokuapp.com/verify?token=${user.token}
 
-        * Provider Account Activation
+    * Logging into Provider Account
+        > POST https://entertainment-sports.herokuapp.com/login
 
-            > GET https://entertainment-sports.herokuapp.com/verify?token=${user.token}
+    * Provide Movie
+        > POST https://entertainment-sports.herokuapp.com/addMovie
 
-        * Logging into Provider Account
+    * Update Movie 
+        > PATCH https://entertainment-sports.herokuapp.com/updateMovie
 
-            > POST https://entertainment-sports.herokuapp.com/login
+    * See Profile 
+        > GET https://entertainment-sports.herokuapp.com/seeProfile
+    * Change Password 
+        > POST https://entertainment-sports.herokuapp.com/changePassword
 
-        * Provide Movie
+    * Forgot Password 
+        > POST https://entertainment-sports.herokuapp.com/forgotPassword
 
-            > POST https://entertainment-sports.herokuapp.com/addMovie
+    * Logout from account
+        > DELETE https://entertainment-sports.herokuapp.com/logout
 
-        * Update Movie 
-
-            > PATCH https://entertainment-sports.herokuapp.com/updateMovie
-
-        * See Profile 
-
-            > GET https://entertainment-sports.herokuapp.com/seeProfile
-
-        * Change Password 
-
-            > POST https://entertainment-sports.herokuapp.com/changePassword
-
-        * Forgot Password 
-
-            > POST https://entertainment-sports.herokuapp.com/forgotPassword
-
-        * Logout from account
-
-            > DELETE https://entertainment-sports.herokuapp.com/logout
-
-        * Delete Events details
-
-            > DELETE https://entertainment-sports.herokuapp.com/logout/revomeTvSeries/:tvSeriesId
+    * Delete Events details
+        > DELETE https://entertainment-sports.herokuapp.com/logout/revomeTvSeries/:tvSeriesId
 
 6. General user Routes 
 

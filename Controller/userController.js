@@ -80,7 +80,7 @@ module.exports = {
                     user[0].generateToken();
                     user[0].createLoggedIn();
                     await user[0].save();
-                    return res.status(200).send({msg:`Welcome ${user[0].companyName}`,token:user[0].token, , profile: user[0]});          
+                    return res.status(200).send({msg:`Welcome ${user[0].companyName}`,token:user[0].token,profile: user[0]});          
                 }
                 else if(user[0].isAuthorized === true && user[0].isLoggedIn === true){
                   return res.status(403).send({msg:"You are already logged in"});
