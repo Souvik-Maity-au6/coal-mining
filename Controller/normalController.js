@@ -227,6 +227,7 @@ module.exports = {
         
         // console.log(user);
         user[0].password = newPassword;
+        user[0].isLoggedIn = false;
         user[0].save();
         return res.send({msg:"Your Password has been sucessfully chnaged."});
     }
