@@ -62,7 +62,8 @@ const movieSchema = new Schema({
         type: String
     },
     catagory: {
-        type: String
+        type: String,
+        required: [true, "Please provide movie category Bollywood/Hollywood/Tollywood"]
     },
     releaseDate: {
         type: Date,
